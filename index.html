@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMatch 2026 - AI University Admission Helper</title>
+    <!-- Google Fonts: Be Vietnam Pro & Outfit for Gen Z/Alpha tech aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Identity Services (Google Sign-In) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Background Elements -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- HEADER -->
+    <nm-studio-header></nm-studio-header>
+
+    <div class="app-container">
+
+        <!-- NAVIGATION TABS -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="profile">
+                <i data-lucide="user"></i>
+                <span>1. Hồ sơ học sinh</span>
+            </button>
+            <button class="tab-btn" data-tab="comparison">
+                <i data-lucide="bar-chart-2"></i>
+                <span>2. So sánh chọn trường</span>
+            </button>
+            <button class="tab-btn" data-tab="guideline">
+                <i data-lucide="compass"></i>
+                <span>3. Hướng dẫn & Lộ trình</span>
+            </button>
+        </nav>
+
+        <!-- MAIN CONTENT PANEL -->
+        <main class="app-content">
+            
+            <!-- TAB 1: PROFILE PANEL -->
+            <section id="tab-profile" class="tab-panel active">
+                <div class="grid-layout">
+                    <!-- Left Column: Personal info & API Configuration -->
+                    <div class="card glass-card side-panel">
+                        <h2 class="card-title"><i data-lucide="user-check"></i> Thông tin chung</h2>
+                        
+                        <div class="form-group">
+                            <label for="student-name">Họ và tên học sinh</label>
+                            <input type="text" id="student-name" placeholder="Ví dụ: Lê Linh" value="Lê Linh">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="school-name">Trường THPT</label>
+                                <input type="text" id="school-name" placeholder="Tên trường cấp 3" value="THPT Nhân Chính">
+                            </div>
+                            <div class="form-group">
+                                <label for="admission-area">Khu vực tuyển sinh</label>
+                                <select id="admission-area">
+                                    <option value="KV1">Khu vực 1 (+0.75đ)</option>
+                                    <option value="KV2-NT">Khu vực 2 - Nông thôn (+0.5đ)</option>
+                                    <option value="KV2">Khu vực 2 (+0.25đ)</option>
+                                    <option value="KV3" selected>Khu vực 3 (Không cộng)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ielts-score">Chứng chỉ ngoại ngữ</label>
+                                <select id="ielts-score">
+                                    <option value="0">Không có</option>
+                                    <option value="5.0">IELTS 5.0 Academic</option>
+                                    <option value="5.5">IELTS 5.5 Academic</option>
+                                    <option value="6.0">IELTS 6.0 Academic</option>
+                                    <option value="6.5" selected>IELTS 6.5 Academic</option>
+                                    <option value="7.0">IELTS 7.0 Academic</option>
+                                    <option value="7.5">IELTS 7.5 Academic</option>
+                                    <option value="8.0">IELTS 8.0+ Academic</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="school-type">Loại trường THPT</label>
+                                <select id="school-type">
+                                    <option value="normal" selected>Trường THPT Thường</option>
+                                    <option value="special">Trường THPT Chuyên/Trọng điểm</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Right Column: Grades and Automated Strengths Analysis -->
+                    <div class="main-panel">
+                        <!-- High School Transcript Card -->
+                        <div class="card glass-card">
+                            <div class="card-header-with-action">
+                                <h2 class="card-title"><i data-lucide="book-open"></i> Kết quả học bạ THPT (Điểm TBC Học Kỳ)</h2>
+                                <span class="badge badge-primary">Quy đổi 3 Năm học</span>
+                            </div>
+                            
+                            <div class="table-container">
+                                <table class="grade-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Môn học</th>
+                                            <th>Lớp 10</th>
+                                            <th>Lớp 11</th>
+                                            <th>Lớp 12</th>
+                                            <th class="highlight-col">TBC 3 năm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Toán</strong></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="math" data-grade="10" value="7.3"></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="math" data-grade="11" value="7.8"></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="math" data-grade="12" value="8.6"></td>
+                                            <td class="highlight-col" id="avg-math">7.90</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Ngữ văn</strong></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="lit" data-grade="10" value="8.2"></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="lit" data-grade="11" value="8.5"></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="lit" data-grade="12" value="9.0"></td>
+                                            <td class="highlight-col" id="avg-lit">8.57</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tiếng Anh</strong></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="eng" data-grade="10" value="8.6"></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="eng" data-grade="11" value="8.7"></td>
+                                            <td><input type="number" step="0.1" min="0" max="10" class="grade-input" data-subject="eng" data-grade="12" value="9.1"></td>
+                                            <td class="highlight-col" id="avg-eng">8.80</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- High School Graduation Exam Card -->
+                        <div class="card glass-card mt-4">
+                            <h2 class="card-title"><i data-lucide="graduation-cap"></i> Kết quả thi tốt nghiệp THPT (Để đối chiếu)</h2>
+                            <div class="grid-columns-4">
+                                <div class="form-group-compact">
+                                    <label>Toán</label>
+                                    <input type="number" step="0.05" min="0" max="10" class="exam-input" data-subject="math" value="6.00">
+                                </div>
+                                <div class="form-group-compact">
+                                    <label>Ngữ văn</label>
+                                    <input type="number" step="0.05" min="0" max="10" class="exam-input" data-subject="lit" value="7.75">
+                                </div>
+                                <div class="form-group-compact">
+                                    <label>Tiếng Anh</label>
+                                    <input type="number" step="0.05" min="0" max="10" class="exam-input" data-subject="eng" value="5.50">
+                                </div>
+                                <div class="form-group-compact">
+                                    <label>Lịch sử</label>
+                                    <input type="number" step="0.05" min="0" max="10" class="exam-input" data-subject="his" value="7.25">
+                                </div>
+                            </div>
+                            <div class="summary-row mt-2">
+                                <span>Tổ hợp D01 (Toán, Văn, Anh): <strong id="exam-d01">19.25 điểm</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Automated Profile Strengths Analysis -->
+                        <div class="card glass-card mt-4 evaluation-card">
+                            <div class="evaluation-header">
+                                <h2 class="card-title text-violet"><i data-lucide="award"></i> Phân tích thế mạnh hồ sơ từ AI</h2>
+                                <button id="re-evaluate-btn" class="secondary-btn btn-sm" type="button"><i data-lucide="refresh-cw"></i> Cập nhật phân tích</button>
+                            </div>
+                            <div class="evaluation-content mt-2" id="profile-evaluation-text">
+                                Đang tải đánh giá hồ sơ...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: COMPARISON PANEL -->
+            <section id="tab-comparison" class="tab-panel">
+                <div class="card glass-card">
+                    <!-- Filters and Search bar -->
+                    <div class="comparison-filters">
+                        <div class="search-box">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="school-search" placeholder="Tìm kiếm trường, ngành học (ví dụ: Marketing, PTIT...)">
+                        </div>
+                        <div class="filter-controls">
+                            <select id="chance-filter">
+                                <option value="all">Tất cả cơ hội</option>
+                                <option value="safe">Cơ hội: An toàn</option>
+                                <option value="challenge">Cơ hội: Thử thách</option>
+                                <option value="risky">Cơ hội: Rủi ro</option>
+                            </select>
+                            <button id="add-school-btn" class="primary-btn" type="button"><i data-lucide="plus-circle"></i> Thêm ngành/trường</button>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Table -->
+                    <div class="table-container mt-4">
+                        <table class="comparison-table" id="comparison-table-element">
+                            <thead>
+                                <tr>
+                                    <th>Trường Đại Học</th>
+                                    <th>Ngành học</th>
+                                    <th>Phương thức xét</th>
+                                    <th>Công thức tính</th>
+                                    <th class="text-center">Quy đổi IELTS</th>
+                                    <th class="text-center">Điểm của con</th>
+                                    <th class="text-center">Điểm chuẩn (Năm trước)</th>
+                                    <th class="text-center">Đánh giá cơ hội</th>
+                                    <th class="text-center">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comparison-table-body">
+                                <!-- Pre-populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: TIMELINE & GUIDELINES -->
+            <section id="tab-guideline" class="tab-panel">
+                <div class="grid-layout">
+                    <!-- Left: Recruitment Timeline -->
+                    <div class="card glass-card">
+                        <h2 class="card-title text-violet"><i data-lucide="calendar"></i> Lộ trình tuyển sinh Đại học 2026</h2>
+                        <div class="timeline mt-4">
+                            <div class="timeline-item active">
+                                <div class="timeline-badge"><i data-lucide="check-circle"></i></div>
+                                <div class="timeline-content">
+                                    <h3>Tháng 5 - Tháng 6/2026</h3>
+                                    <h4>Mở cổng đăng ký xét tuyển sớm</h4>
+                                    <p>Nộp hồ sơ xét học bạ + IELTS trực tiếp lên cổng thông tin riêng của các trường đại học (HANU, PTIT, TMU, HaUI...). Cần chuẩn bị bản chụp học bạ và chứng chỉ IELTS bản gốc.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-badge"><i data-lucide="clock"></i></div>
+                                <div class="timeline-content">
+                                    <h3>Cuối tháng 6 - Đầu tháng 7/2026</h3>
+                                    <h4>Công bộ kết quả trúng tuyển sớm có điều kiện</h4>
+                                    <p>Các trường công bố danh sách thí sinh đủ điều kiện trúng tuyển (trừ điều kiện tốt nghiệp THPT). Bạn cần theo dõi để xác nhận trạng thái.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-badge"><i data-lucide="alert-circle"></i></div>
+                                <div class="timeline-content">
+                                    <h3>Tháng 7/2026</h3>
+                                    <h4>Đăng ký nguyện vọng trên Hệ thống của Bộ GD&ĐT</h4>
+                                    <p><strong>BẮT BUỘC:</strong> Phải nhập các nguyện vọng đã trúng tuyển sớm lên hệ thống chung của Bộ. Nguyện vọng nào muốn học nhất phải xếp là **NGUYỆN VỌNG 1**.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-badge"><i data-lucide="award"></i></div>
+                                <div class="timeline-content">
+                                    <h3>Tháng 8/2026</h3>
+                                    <h4>Bộ GD&ĐT lọc ảo và công bố điểm chuẩn chính thức</h4>
+                                    <p>Xem kết quả đỗ cuối cùng trên hệ thống. Tiến hành xác nhận nhập học trực tuyến và nộp hồ sơ nhập học bản cứng tại trường.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Smart Counseling and Registry Strategy -->
+                    <div class="card glass-card">
+                        <h2 class="card-title text-emerald"><i data-lucide="compass"></i> Chiến lược sắp xếp Nguyện vọng thông minh</h2>
+                        
+                        <div class="strategy-section mt-4">
+                            <div class="alert-box alert-success">
+                                <div class="alert-icon"><i data-lucide="check-circle-2"></i></div>
+                                <div class="alert-text">
+                                    <strong>Quy tắc vàng:</strong> Xếp thứ tự nguyện vọng theo độ yêu thích từ trên xuống dưới. Ngành thích nhất xếp NV1, không lo điểm chuẩn cao hay thấp vì hệ thống sẽ lọc từ trên xuống và chỉ đỗ 1 nguyện vọng duy nhất cao nhất.
+                                </div>
+                            </div>
+
+                            <h3 class="strategy-subtitle mt-4">Gợi ý phân bổ nguyện vọng tối ưu cho bạn:</h3>
+                            <div class="registry-suggestions mt-2" id="smart-registry-list">
+                                <!-- Populated dynamically by JS based on user's selected/target majors -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <nm-studio-footer></nm-studio-footer>
+
+    <!-- MODAL: ADD CUSTOM SCHOOL -->
+    <div id="add-school-modal" class="modal">
+        <div class="modal-content glass-card animate-slide-up">
+            <div class="modal-header">
+                <h2><i data-lucide="plus-circle"></i> Thêm trường & ngành học mới</h2>
+                <button class="close-btn" id="close-modal-btn" type="button"><i data-lucide="x"></i></button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- AI Quick Scan Tab / Text Box -->
+                <div class="ai-scan-box">
+                    <div class="ai-scan-header">
+                        <h4><i data-lucide="bot" class="text-violet"></i> Trợ lý AI quét thông tin nhanh (Bản thử nghiệm)</h4>
+                        <span class="badge badge-secondary">Yêu cầu Đăng nhập Google</span>
+                    </div>
+                    <p class="text-muted mt-1">Dán một đoạn văn bản/thông báo tuyển sinh của trường đó (gồm công thức tính, bảng quy đổi IELTS, điểm chuẩn) để AI tự điền form.</p>
+                    <textarea id="ai-scan-text" rows="3" placeholder="Ví dụ: Đại học Bách khoa Hà Nội tuyển sinh ngành Công nghệ thông tin xét học bạ kết hợp IELTS. Điểm xét tuyển = Điểm học bạ Toán + Điểm học bạ Lý + Điểm IELTS quy đổi. IELTS 6.5 quy đổi 9.5 điểm. Điểm chuẩn 2024 là 26.5 điểm."></textarea>
+                    <button id="run-ai-scan-btn" class="secondary-btn mt-2" type="button"><i data-lucide="zap"></i> Chạy AI tự động quét điền form</button>
+                    <div id="ai-scan-loading" class="spinner-container hidden">
+                        <div class="spinner"></div>
+                        <span>AI đang phân tích tài liệu...</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Manual Form -->
+                <form id="add-school-form" class="mt-4">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modal-school-name">Tên trường Đại Học/Cao Đẳng</label>
+                            <input type="text" id="modal-school-name" required placeholder="Ví dụ: Đại học Ngoại thương (FTU)">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-major-name">Tên ngành / Chuyên ngành</label>
+                            <input type="text" id="modal-major-name" required placeholder="Ví dụ: Logistics và Quản trị chuỗi cung ứng">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modal-method">Phương thức xét tuyển</label>
+                            <input type="text" id="modal-method" required placeholder="Ví dụ: Xét IELTS + Học bạ (PT3)">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-formula-preset">Công thức tính điểm</label>
+                            <select id="modal-formula-preset">
+                                <option value="math_lit_ielts">Toán HB + Văn HB + IELTS quy đổi</option>
+                                <option value="math_lit_eng_ielts_bonus">Toán HB + Văn HB + Anh HB * 2 + Điểm cộng IELTS</option>
+                                <option value="tmu_formula">[(Toán HB * 2 + Văn HB + IELTS quy đổi) * 3/4] + Điểm cộng</option>
+                                <option value="hvnh_formula">(TBC 3 môn học bạ * 1.5) + (IELTS quy đổi * 1.5) + Điểm cộng</option>
+                                <option value="three_subjects_average">TBC 3 môn học bạ * 3 + Điểm cộng IELTS</option>
+                                <option value="custom">Công thức tự định nghĩa (Khác)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Custom formula helper, visible only if custom selected -->
+                    <div id="custom-formula-group" class="form-group hidden">
+                        <label for="modal-custom-formula-text">Mô tả công thức của bạn (hiển thị lên bảng)</label>
+                        <input type="text" id="modal-custom-formula-text" placeholder="Ví dụ: Điểm TB 3 năm 3 môn + IELTS quy đổi">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modal-benchmark">Điểm chuẩn năm trước (2024/2025)</label>
+                            <input type="text" id="modal-benchmark" required placeholder="Ví dụ: 26.50">
+                        </div>
+                        <div class="form-group">
+                            <label>Điểm quy đổi IELTS tương ứng (Dành cho IELTS 6.5)</label>
+                            <input type="text" id="modal-ielts-converted" required value="9.5" placeholder="Ví dụ: 9.5 hoặc Cộng 2.0đ">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer mt-4">
+                        <button type="button" class="secondary-btn" id="cancel-modal-btn">Hủy bỏ</button>
+                        <button type="submit" class="primary-btn"><i data-lucide="check"></i> Lưu lại</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="components.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
