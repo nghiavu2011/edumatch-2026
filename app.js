@@ -396,6 +396,15 @@ function initEventListeners() {
     // AI Quick Scan run button
     document.getElementById("run-ai-scan-btn").addEventListener("click", runAIQuickScan);
     
+    // Landing CTA Button scroll
+    const ctaStartBtn = document.getElementById("cta-start-btn");
+    if (ctaStartBtn) {
+        ctaStartBtn.addEventListener("click", () => {
+            const anchor = document.getElementById("app-workspace-anchor");
+            if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
+        });
+    }
+
     // Search & Filter
     document.getElementById("school-search").addEventListener("input", renderComparisonTable);
     document.getElementById("chance-filter").addEventListener("change", renderComparisonTable);
