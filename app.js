@@ -336,6 +336,25 @@ function initEventListeners() {
     document.getElementById("close-modal-btn").addEventListener("click", closeModal);
     document.getElementById("cancel-modal-btn").addEventListener("click", closeModal);
     
+    // Help Modal controllers
+    const helpModal = document.getElementById("help-modal");
+    const helpBtn = document.getElementById("help-btn");
+    if (helpBtn) {
+        helpBtn.addEventListener("click", () => {
+            helpModal.style.display = "flex";
+        });
+    }
+    
+    const closeHelpModal = () => {
+        helpModal.style.display = "none";
+    };
+
+    const closeHelpBtn = document.getElementById("close-help-modal-btn");
+    if (closeHelpBtn) closeHelpBtn.addEventListener("click", closeHelpModal);
+    
+    const gotItHelpBtn = document.getElementById("got-it-help-btn");
+    if (gotItHelpBtn) gotItHelpBtn.addEventListener("click", closeHelpModal);
+    
     // Formula preset change
     document.getElementById("modal-formula-preset").addEventListener("change", (e) => {
         const group = document.getElementById("custom-formula-group");

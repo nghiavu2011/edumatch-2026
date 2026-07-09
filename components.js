@@ -29,6 +29,11 @@ class NMStudioHeader extends HTMLElement {
                     <!-- Right: Actions (Theme Toggle & Google Sign-In) -->
                     <div class="nm-header-actions">
                         <div class="nm-actions-group">
+                            <!-- Help Button -->
+                            <button id="help-btn" class="icon-btn" title="Hướng dẫn sử dụng">
+                                <i data-lucide="help-circle"></i>
+                            </button>
+
                             <!-- Theme Toggle -->
                             <button id="theme-toggle" class="icon-btn nm-theme-btn" title="Chuyển chế độ Sáng/Tối">
                                 <i data-lucide="sun" class="sun-icon"></i>

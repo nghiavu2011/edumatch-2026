@@ -1193,3 +1193,43 @@ tbody tr:hover {
     font-size: 0.75rem;
     color: var(--text-muted);
 }
+
+/* Help Modal Steps */
+.help-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.help-step-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.help-step-number {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.help-step-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.help-step-text strong {
+    color: #FDFBF7;
+    display: block;
+    margin-bottom: 2px;
+}
