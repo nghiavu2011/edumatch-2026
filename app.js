@@ -4,8 +4,39 @@
 // DATA STATE & LOCAL STORAGE INITIALIZATION
 // ==========================================
 const DEFAULT_SCHOOLS = [
+    // 1. PTIT (Học viện Công nghệ Bưu chính Viễn thông) - Hà Nội
     {
         id: "1",
+        school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
+        major: "Công nghệ thông tin",
+        method: "Xét IELTS + Học bạ (PT4)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "27.85",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "2",
+        school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
+        major: "An toàn thông tin",
+        method: "Xét IELTS + Học bạ (PT4)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "26.50",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "3",
+        school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
+        major: "Thương mại điện tử",
+        method: "Xét IELTS + Học bạ (PT4)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "27.20",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "4",
         school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
         major: "Báo chí",
         method: "Xét IELTS + Học bạ (PT4)",
@@ -15,47 +46,7 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "2",
-        school: "Đại học Hà Nội (HANU)",
-        major: "Marketing (Dạy bằng tiếng Anh)",
-        method: "Xét IELTS + Học bạ (PT3)",
-        formula_preset: "math_lit_eng_ielts_bonus",
-        custom_formula: "",
-        benchmark: "33.0 - 35.0",
-        ielts_converted: "Cộng 2.0đ"
-    },
-    {
-        id: "3",
-        school: "Đại học Hà Nội (HANU)",
-        major: "Truyền thông đa phương tiện (Tiếng Anh)",
-        method: "Xét IELTS + Học bạ (PT3)",
-        formula_preset: "math_lit_eng_ielts_bonus",
-        custom_formula: "",
-        benchmark: "34.5",
-        ielts_converted: "Cộng 2.0đ"
-    },
-    {
-        id: "4",
-        school: "Đại học Thương mại (TMU)",
-        major: "Quản trị thương hiệu",
-        method: "Xét IELTS + Học bạ (PT410)",
-        formula_preset: "tmu_formula",
-        custom_formula: "",
-        benchmark: "26.80",
-        ielts_converted: "9.5"
-    },
-    {
         id: "5",
-        school: "Đại học Thương mại (TMU)",
-        major: "Marketing thương mại",
-        method: "Xét IELTS + Học bạ (PT410)",
-        formula_preset: "tmu_formula",
-        custom_formula: "",
-        benchmark: "27.30",
-        ielts_converted: "9.5"
-    },
-    {
-        id: "6",
         school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
         major: "Marketing",
         method: "Xét IELTS + Học bạ (PT4)",
@@ -65,7 +56,7 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "7",
+        id: "6",
         school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
         major: "Truyền thông đa phương tiện",
         method: "Xét IELTS + Học bạ (PT4)",
@@ -75,87 +66,289 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "8",
-        school: "Học viện Tài chính (AOF)",
-        major: "Kinh tế",
-        method: "Xét IELTS + Học bạ (PT3)",
+        id: "7",
+        school: "Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
+        major: "Quản trị kinh doanh",
+        method: "Xét IELTS + Học bạ (PT4)",
         formula_preset: "math_lit_ielts",
         custom_formula: "",
-        benchmark: "24.50 - 25.50",
+        benchmark: "26.10",
+        ielts_converted: "9.5"
+    },
+
+    // 2. TMU (Đại học Thương mại) - Hà Nội
+    {
+        id: "8",
+        school: "Đại học Thương mại (TMU)",
+        major: "Quản trị thương hiệu",
+        method: "Xét IELTS + Học bạ (PT410)",
+        formula_preset: "tmu_formula",
+        custom_formula: "",
+        benchmark: "26.80",
         ielts_converted: "9.5"
     },
     {
         id: "9",
-        school: "Trường Đại học Kinh tế - ĐHQGHN (UEB)",
-        major: "Kinh tế",
-        method: "Xét IELTS + Học bạ (PT riêng)",
-        formula_preset: "math_lit_ielts",
+        school: "Đại học Thương mại (TMU)",
+        major: "Marketing thương mại",
+        method: "Xét IELTS + Học bạ (PT410)",
+        formula_preset: "tmu_formula",
         custom_formula: "",
-        benchmark: "25.00 - 26.50",
+        benchmark: "27.30",
         ielts_converted: "9.5"
     },
     {
         id: "10",
+        school: "Đại học Thương mại (TMU)",
+        major: "Logistics & Quản trị chuỗi cung ứng",
+        method: "Xét IELTS + Học bạ (PT410)",
+        formula_preset: "tmu_formula",
+        custom_formula: "",
+        benchmark: "27.10",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "11",
+        school: "Đại học Thương mại (TMU)",
+        major: "Thương mại điện tử",
+        method: "Xét IELTS + Học bạ (PT410)",
+        formula_preset: "tmu_formula",
+        custom_formula: "",
+        benchmark: "26.90",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "12",
+        school: "Đại học Thương mại (TMU)",
+        major: "Kinh doanh quốc tế",
+        method: "Xét IELTS + Học bạ (PT410)",
+        formula_preset: "tmu_formula",
+        custom_formula: "",
+        benchmark: "27.20",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "13",
+        school: "Đại học Thương mại (TMU)",
+        major: "Luật kinh tế",
+        method: "Xét IELTS + Học bạ (PT410)",
+        formula_preset: "tmu_formula",
+        custom_formula: "",
+        benchmark: "26.50",
+        ielts_converted: "9.5"
+    },
+
+    // 3. HANU (Đại học Hà Nội) - Hà Nội
+    {
+        id: "14",
+        school: "Đại học Hà Nội (HANU)",
+        major: "Marketing (Dạy bằng tiếng Anh CLC)",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_eng_ielts_bonus",
+        custom_formula: "",
+        benchmark: "33.50",
+        ielts_converted: "Cộng 2.0đ"
+    },
+    {
+        id: "15",
+        school: "Đại học Hà Nội (HANU)",
+        major: "Truyền thông đa phương tiện (Tiếng Anh)",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_eng_ielts_bonus",
+        custom_formula: "",
+        benchmark: "34.50",
+        ielts_converted: "Cộng 2.0đ"
+    },
+    {
+        id: "16",
+        school: "Đại học Hà Nội (HANU)",
+        major: "Quản trị kinh doanh (Tiếng Anh)",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_eng_ielts_bonus",
+        custom_formula: "",
+        benchmark: "32.80",
+        ielts_converted: "Cộng 2.0đ"
+    },
+    {
+        id: "17",
+        school: "Đại học Hà Nội (HANU)",
+        major: "Ngôn ngữ Anh",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_eng_ielts_bonus",
+        custom_formula: "",
+        benchmark: "34.20",
+        ielts_converted: "Cộng 2.0đ"
+    },
+    {
+        id: "18",
+        school: "Đại học Hà Nội (HANU)",
+        major: "Ngôn ngữ Trung Quốc",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_eng_ielts_bonus",
+        custom_formula: "",
+        benchmark: "35.10",
+        ielts_converted: "Cộng 2.0đ"
+    },
+    {
+        id: "19",
+        school: "Đại học Hà Nội (HANU)",
+        major: "Ngôn ngữ Hàn Quốc",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_eng_ielts_bonus",
+        custom_formula: "",
+        benchmark: "35.30",
+        ielts_converted: "Cộng 2.0đ"
+    },
+
+    // 4. HVNH (Học viện Ngân hàng) - Hà Nội
+    {
+        id: "20",
         school: "Học viện Ngân hàng (HVNH)",
         major: "Marketing",
         method: "Xét IELTS + Học bạ (PT2.1)",
         formula_preset: "hvnh_formula",
         custom_formula: "",
-        benchmark: "28.00 - 29.90",
+        benchmark: "28.00",
         ielts_converted: "9.5"
     },
     {
-        id: "11",
+        id: "21",
         school: "Học viện Ngân hàng (HVNH)",
         major: "Tài chính - Ngân hàng",
         method: "Xét IELTS + Học bạ (PT2.1)",
         formula_preset: "hvnh_formula",
         custom_formula: "",
-        benchmark: "28.50 - 29.90",
+        benchmark: "28.50",
         ielts_converted: "9.5"
     },
     {
-        id: "12",
-        school: "Đại học Kinh tế TP.HCM (UEH)",
-        major: "Marketing",
-        method: "Xét IELTS + Học bạ (PT4)",
-        formula_preset: "ueh_formula",
+        id: "22",
+        school: "Học viện Ngân hàng (HVNH)",
+        major: "Quản trị kinh doanh",
+        method: "Xét IELTS + Học bạ (PT2.1)",
+        formula_preset: "hvnh_formula",
         custom_formula: "",
-        benchmark: "76.00",
-        ielts_converted: "20.0"
+        benchmark: "27.90",
+        ielts_converted: "9.5"
     },
     {
-        id: "13",
-        school: "Đại học Kinh tế TP.HCM (UEH)",
+        id: "23",
+        school: "Học viện Ngân hàng (HVNH)",
+        major: "Kế toán",
+        method: "Xét IELTS + Học bạ (PT2.1)",
+        formula_preset: "hvnh_formula",
+        custom_formula: "",
+        benchmark: "27.50",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "24",
+        school: "Học viện Ngân hàng (HVNH)",
+        major: "Luật kinh tế",
+        method: "Xét IELTS + Học bạ (PT2.1)",
+        formula_preset: "hvnh_formula",
+        custom_formula: "",
+        benchmark: "28.20",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "25",
+        school: "Học viện Ngân hàng (HVNH)",
+        major: "Logistics và Quản trị chuỗi cung ứng",
+        method: "Xét IELTS + Học bạ (PT2.1)",
+        formula_preset: "hvnh_formula",
+        custom_formula: "",
+        benchmark: "28.10",
+        ielts_converted: "9.5"
+    },
+
+    // 5. AOF (Học viện Tài chính) - Hà Nội
+    {
+        id: "26",
+        school: "Học viện Tài chính (AOF)",
         major: "Kinh tế",
-        method: "Xét IELTS + Học bạ (PT4)",
-        formula_preset: "ueh_formula",
-        custom_formula: "",
-        benchmark: "67.00",
-        ielts_converted: "20.0"
-    },
-    {
-        id: "14",
-        school: "Đại học Công nghiệp Hà Nội (HaUI)",
-        major: "Công nghệ thông tin",
-        method: "Xét IELTS + Học bạ",
+        method: "Xét IELTS + Học bạ (PT3)",
         formula_preset: "math_lit_ielts",
         custom_formula: "",
-        benchmark: "24.50",
+        benchmark: "25.50",
         ielts_converted: "9.5"
     },
     {
-        id: "15",
-        school: "Đại học Công nghiệp Hà Nội (HaUI)",
-        major: "Marketing",
-        method: "Xét IELTS + Học bạ",
+        id: "27",
+        school: "Học viện Tài chính (AOF)",
+        major: "Quản trị kinh doanh",
+        method: "Xét IELTS + Học bạ (PT3)",
         formula_preset: "math_lit_ielts",
         custom_formula: "",
-        benchmark: "23.80",
+        benchmark: "25.80",
         ielts_converted: "9.5"
     },
     {
-        id: "16",
+        id: "28",
+        school: "Học viện Tài chính (AOF)",
+        major: "Tài chính - Ngân hàng",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "25.20",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "29",
+        school: "Học viện Tài chính (AOF)",
+        major: "Kế toán",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "26.10",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "30",
+        school: "Học viện Tài chính (AOF)",
+        major: "Hải quan & Logistics",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "25.90",
+        ielts_converted: "9.5"
+    },
+
+    // 6. UEB (Đại học Kinh tế - ĐHQGHN) - Hà Nội
+    {
+        id: "31",
+        school: "Trường Đại học Kinh tế - ĐHQGHN (UEB)",
+        major: "Kinh tế quốc tế",
+        method: "Xét IELTS + Học bạ (PT riêng)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "26.80",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "32",
+        school: "Trường Đại học Kinh tế - ĐHQGHN (UEB)",
+        major: "Quản trị kinh doanh",
+        method: "Xét IELTS + Học bạ (PT riêng)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "26.20",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "33",
+        school: "Trường Đại học Kinh tế - ĐHQGHN (UEB)",
+        major: "Tài chính - Ngân hàng",
+        method: "Xét IELTS + Học bạ (PT riêng)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "25.90",
+        ielts_converted: "9.5"
+    },
+
+    // 7. FTU (Đại học Ngoại thương) - Hà Nội
+    {
+        id: "34",
         school: "Trường Đại học Ngoại thương (FTU)",
         major: "Kinh tế đối ngoại (CLC)",
         method: "Xét IELTS + Học bạ (PT3)",
@@ -165,7 +358,7 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "17",
+        id: "35",
         school: "Trường Đại học Ngoại thương (FTU)",
         major: "Quản trị kinh doanh",
         method: "Xét IELTS + Học bạ (PT3)",
@@ -175,7 +368,39 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "18",
+        id: "36",
+        school: "Trường Đại học Ngoại thương (FTU)",
+        major: "Luật thương mại quốc tế",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "28.10",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "37",
+        school: "Trường Đại học Ngoại thương (FTU)",
+        major: "Tài chính - Ngân hàng",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "27.60",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "38",
+        school: "Trường Đại học Ngoại thương (FTU)",
+        major: "Kinh tế quốc tế",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "28.20",
+        ielts_converted: "9.5"
+    },
+
+    // 8. NEU (Đại học Kinh tế Quốc dân) - Hà Nội
+    {
+        id: "39",
         school: "Trường Đại học Kinh tế Quốc dân (NEU)",
         major: "Kinh tế quốc tế",
         method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
@@ -185,7 +410,7 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "19",
+        id: "40",
         school: "Trường Đại học Kinh tế Quốc dân (NEU)",
         major: "Kinh doanh quốc tế",
         method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
@@ -195,27 +420,71 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "9.5"
     },
     {
-        id: "20",
+        id: "41",
+        school: "Trường Đại học Kinh tế Quốc dân (NEU)",
+        major: "Marketing",
+        method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
+        formula_preset: "custom",
+        custom_formula: "ielts + thi_toan + thi_van + kv",
+        benchmark: "28.10",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "42",
+        school: "Trường Đại học Kinh tế Quốc dân (NEU)",
+        major: "Logistics & Quản trị chuỗi cung ứng",
+        method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
+        formula_preset: "custom",
+        custom_formula: "ielts + thi_toan + thi_van + kv",
+        benchmark: "28.25",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "43",
+        school: "Trường Đại học Kinh tế Quốc dân (NEU)",
+        major: "Tài chính - Ngân hàng",
+        method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
+        formula_preset: "custom",
+        custom_formula: "ielts + thi_toan + thi_van + kv",
+        benchmark: "27.65",
+        ielts_converted: "9.5"
+    },
+
+    // 9. HLU (Đại học Luật Hà Nội) - Hà Nội
+    {
+        id: "44",
         school: "Trường Đại học Luật Hà Nội (HLU)",
         major: "Luật kinh tế",
         method: "Xét IELTS + Học bạ 3 môn (PT2)",
         formula_preset: "custom",
         custom_formula: "toan + van + ielts + kv",
-        benchmark: "27.50 - 28.50",
+        benchmark: "28.50",
         ielts_converted: "9.0"
     },
     {
-        id: "21",
+        id: "45",
         school: "Trường Đại học Luật Hà Nội (HLU)",
         major: "Luật thương mại quốc tế",
         method: "Xét IELTS + Học bạ 3 môn (PT2)",
         formula_preset: "custom",
         custom_formula: "toan + van + ielts + kv",
-        benchmark: "27.20 - 28.00",
+        benchmark: "27.80",
         ielts_converted: "9.0"
     },
     {
-        id: "22",
+        id: "46",
+        school: "Trường Đại học Luật Hà Nội (HLU)",
+        major: "Luật (CLC)",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts + kv",
+        benchmark: "26.50",
+        ielts_converted: "9.0"
+    },
+
+    // 10. DAV (Học viện Ngoại giao) - Hà Nội
+    {
+        id: "47",
         school: "Học viện Ngoại giao (DAV)",
         major: "Quan hệ quốc tế",
         method: "Xét IELTS + Học bạ 3 môn (PT2)",
@@ -225,7 +494,7 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "8.5"
     },
     {
-        id: "23",
+        id: "48",
         school: "Học viện Ngoại giao (DAV)",
         major: "Truyền thông quốc tế",
         method: "Xét IELTS + Học bạ 3 môn (PT2)",
@@ -235,23 +504,35 @@ const DEFAULT_SCHOOLS = [
         ielts_converted: "8.5"
     },
     {
-        id: "24",
+        id: "49",
+        school: "Học viện Ngoại giao (DAV)",
+        major: "Kinh tế quốc tế",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts * 2 + kv * 4/3",
+        benchmark: "35.90",
+        ielts_converted: "8.5"
+    },
+    {
+        id: "50",
+        school: "Học viện Ngoại giao (DAV)",
+        major: "Luật quốc tế",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts * 2 + kv * 4/3",
+        benchmark: "35.50",
+        ielts_converted: "8.5"
+    },
+
+    // 11. HUST (Đại học Bách khoa Hà Nội) - Hà Nội
+    {
+        id: "51",
         school: "Đại học Bách khoa Hà Nội (HUST)",
         major: "Công nghệ thông tin (Global ICT - IT-E7)",
         method: "Xét tuyển tài năng & Điểm quy đổi",
         formula_preset: "custom",
         custom_formula: "thi_toan * 2 + thi_van + ielts * 2 + kv * 4/3",
-        benchmark: "26.50 - 28.00",
-        ielts_converted: "9.5"
-    },
-    {
-        id: "25",
-        school: "Trường Đại học Giao thông Vận tải (UTC)",
-        major: "Logistics và Quản trị chuỗi cung ứng",
-        method: "Xét IELTS + Học bạ (PT4)",
-        formula_preset: "math_lit_ielts",
-        custom_formula: "",
-        benchmark: "25.20",
+        benchmark: "27.50",
         ielts_converted: "9.5"
     }
 ];
