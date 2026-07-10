@@ -153,6 +153,106 @@ const DEFAULT_SCHOOLS = [
         custom_formula: "",
         benchmark: "23.80",
         ielts_converted: "9.5"
+    },
+    {
+        id: "16",
+        school: "Trường Đại học Ngoại thương (FTU)",
+        major: "Kinh tế đối ngoại (CLC)",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "28.50",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "17",
+        school: "Trường Đại học Ngoại thương (FTU)",
+        major: "Quản trị kinh doanh",
+        method: "Xét IELTS + Học bạ (PT3)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "27.80",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "18",
+        school: "Trường Đại học Kinh tế Quốc dân (NEU)",
+        major: "Kinh tế quốc tế",
+        method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
+        formula_preset: "custom",
+        custom_formula: "ielts + thi_toan + thi_van + kv",
+        benchmark: "28.15",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "19",
+        school: "Trường Đại học Kinh tế Quốc dân (NEU)",
+        major: "Kinh doanh quốc tế",
+        method: "Xét IELTS + Thi Tốt nghiệp (PT2)",
+        formula_preset: "custom",
+        custom_formula: "ielts + thi_toan + thi_van + kv",
+        benchmark: "28.00",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "20",
+        school: "Trường Đại học Luật Hà Nội (HLU)",
+        major: "Luật kinh tế",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts + kv",
+        benchmark: "27.50 - 28.50",
+        ielts_converted: "9.0"
+    },
+    {
+        id: "21",
+        school: "Trường Đại học Luật Hà Nội (HLU)",
+        major: "Luật thương mại quốc tế",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts + kv",
+        benchmark: "27.20 - 28.00",
+        ielts_converted: "9.0"
+    },
+    {
+        id: "22",
+        school: "Học viện Ngoại giao (DAV)",
+        major: "Quan hệ quốc tế",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts * 2 + kv * 4/3",
+        benchmark: "36.25",
+        ielts_converted: "8.5"
+    },
+    {
+        id: "23",
+        school: "Học viện Ngoại giao (DAV)",
+        major: "Truyền thông quốc tế",
+        method: "Xét IELTS + Học bạ 3 môn (PT2)",
+        formula_preset: "custom",
+        custom_formula: "toan + van + ielts * 2 + kv * 4/3",
+        benchmark: "36.80",
+        ielts_converted: "8.5"
+    },
+    {
+        id: "24",
+        school: "Đại học Bách khoa Hà Nội (HUST)",
+        major: "Công nghệ thông tin (Global ICT - IT-E7)",
+        method: "Xét tuyển tài năng & Điểm quy đổi",
+        formula_preset: "custom",
+        custom_formula: "thi_toan * 2 + thi_van + ielts * 2 + kv * 4/3",
+        benchmark: "26.50 - 28.00",
+        ielts_converted: "9.5"
+    },
+    {
+        id: "25",
+        school: "Trường Đại học Giao thông Vận tải (UTC)",
+        major: "Logistics và Quản trị chuỗi cung ứng",
+        method: "Xét IELTS + Học bạ (PT4)",
+        formula_preset: "math_lit_ielts",
+        custom_formula: "",
+        benchmark: "25.20",
+        ielts_converted: "9.5"
     }
 ];
 
@@ -586,7 +686,15 @@ function calculateAdmissionScore(school) {
                     kv: areaBonus,
                     khuvuc: areaBonus,
                     special: schoolTypeBonus,
-                    chuyen: schoolTypeBonus
+                    chuyen: schoolTypeBonus,
+                    thi_toan: appState.exams.math,
+                    exam_math: appState.exams.math,
+                    thi_van: appState.exams.lit,
+                    exam_lit: appState.exams.lit,
+                    thi_anh: appState.exams.eng,
+                    exam_eng: appState.exams.eng,
+                    thi_su: appState.exams.his,
+                    exam_his: appState.exams.his
                 };
                 const evalScore = safeEval(school.custom_formula, vars);
                 return parseFloat(evalScore.toFixed(2));
