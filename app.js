@@ -483,57 +483,114 @@ function getIeltsConversion(preset, score) {
     }
 }
 
+function removeAccents(str) {
+    if (!str) return "";
+    return str.normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/đ/g, "d")
+              .replace(/Đ/g, "d");
+}
+
+function parseIeltsValue(valStr) {
+    if (!valStr) return 0;
+    const match = valStr.toString().match(/[0-9]+(?:\.[0-9]+)?/);
+    return match ? parseFloat(match[0]) : 0;
+}
+
+function safeEval(expression, vars) {
+    if (!expression) return 0;
+    let cleaned = removeAccents(expression).toLowerCase();
+    
+    // Normalize aliases
+    cleaned = cleaned.replace(/khu vuc/g, 'kv')
+                     .replace(/truong chuyen/g, 'chuyen')
+                     .replace(/diem cong/g, 'kv');
+                     
+    let sanitized = cleaned.replace(/[^a-z0-9\+\-\*\/\(\)\. ]/g, '');
+    
+    const sortedVarNames = Object.keys(vars).sort((a, b) => b.length - a.length);
+    for (const name of sortedVarNames) {
+        const regex = new RegExp('\\b' + name + '\\b', 'g');
+        sanitized = sanitized.replace(regex, vars[name]);
+    }
+    
+    if (/[a-z]/i.test(sanitized)) {
+        console.warn("Invalid variables or text in formula:", sanitized);
+        return 0;
+    }
+    
+    try {
+        return Function(`"use strict"; return (${sanitized})`)();
+    } catch (e) {
+        console.error("Formula evaluation failed:", e);
+        return 0;
+    }
+}
+
 function calculateAdmissionScore(school) {
-    const ieltsVal = getIeltsConversion(school.formula_preset, appState.profile.ielts);
+    let ieltsVal = 0;
+    if (school.formula_preset === "custom") {
+        ieltsVal = parseIeltsValue(school.ielts_converted);
+    } else {
+        ieltsVal = getIeltsConversion(school.formula_preset, appState.profile.ielts);
+    }
+
     const math = calculatedAvgs.math;
     const lit = calculatedAvgs.lit;
     const eng = calculatedAvgs.eng;
     const areaBonus = getAreaBonus(appState.profile.area);
-    const schoolTypeBonus = appState.profile.schoolType === "special" ? 0.5 : 0; // standard bonus if specialized THPT
+    const schoolTypeBonus = appState.profile.schoolType === "special" ? 0.5 : 0;
 
     switch (school.formula_preset) {
         case "math_lit_ielts":
-            // PTIT, AOF, UEB: Toán HB + Văn HB + IELTS quy đổi + Điểm cộng KV
             return parseFloat((math + lit + ieltsVal + areaBonus).toFixed(2));
             
         case "math_lit_eng_ielts_bonus":
-            // HANU: Toán HB + Văn HB + Anh HB*2 + Điểm khuyến khích IELTS + Điểm cộng KV (thang 40)
             const baseHanu = math + lit + (eng * 2);
             return parseFloat((baseHanu + ieltsVal + (areaBonus * 4/3)).toFixed(2));
 
         case "tmu_formula":
-            // TMU: [(Toán HB * 2 + Văn HB + IELTS quy đổi) * 3/4] + Điểm cộng (KV + Loại trường)
             const baseTmu = (math * 2) + lit + ieltsVal;
-            const schoolBonus = appState.profile.schoolType === "special" ? 0.5 : 0; // TMU cộng 0.5đ cho HS trường chuyên
+            const schoolBonus = appState.profile.schoolType === "special" ? 0.5 : 0;
             return parseFloat(((baseTmu * 3/4) + areaBonus + schoolBonus).toFixed(2));
 
         case "hvnh_formula":
-            // HVNH: (TBC 3 môn học bạ * 1.5) + (IELTS quy đổi * 1.5) + Điểm cộng KV
             const tbc3 = (math + lit + eng) / 3;
             return parseFloat(((tbc3 * 1.5) + (ieltsVal * 1.5) + areaBonus).toFixed(2));
 
         case "three_subjects_average":
-            // Standard sum of 3 subjects + IELTS conversion + KV
             return parseFloat((math + lit + eng + areaBonus).toFixed(2));
 
         case "ueh_formula":
-            // UEH: (TBC 3 môn * 5) + Điểm IELTS (max 20) + Điểm học lực + Điểm trường chuyên (thang 100)
             const tbcUeh = (math + lit + eng) / 3;
-            const transcriptComp = tbcUeh * 5; // max 50 points
-            const ieltsComp = ieltsVal; // max 20 points
-            // Determine academic rank component (HSG 3 years = 15, HSG 2 years = 10, HSG 1 year = 5, none = 0)
-            // Since we don't have full GPA, we approximate based on average of Math, Lit, Eng
+            const transcriptComp = tbcUeh * 5;
+            const ieltsComp = ieltsVal;
             let academicComp = 0;
             if (tbcUeh >= 8.5) academicComp = 15;
             else if (tbcUeh >= 8.0) academicComp = 10;
             else if (tbcUeh >= 7.0) academicComp = 5;
             
-            const schoolTypeComp = appState.profile.schoolType === "special" ? 10 : 0; // specialized THPT gets 10 points in UEH
-            
+            const schoolTypeComp = appState.profile.schoolType === "special" ? 10 : 0;
             return parseFloat((transcriptComp + ieltsComp + academicComp + schoolTypeComp).toFixed(2));
 
         default:
-            // Custom or unknown formulas: fallback to simple sum of math + lit + ielts
+            if (school.custom_formula) {
+                const vars = {
+                    math: math,
+                    toan: math,
+                    lit: lit,
+                    van: lit,
+                    eng: eng,
+                    anh: eng,
+                    ielts: ieltsVal,
+                    kv: areaBonus,
+                    khuvuc: areaBonus,
+                    special: schoolTypeBonus,
+                    chuyen: schoolTypeBonus
+                };
+                const evalScore = safeEval(school.custom_formula, vars);
+                return parseFloat(evalScore.toFixed(2));
+            }
             return parseFloat((math + lit + ieltsVal + areaBonus).toFixed(2));
     }
 }
@@ -910,7 +967,8 @@ async function runAIQuickScan() {
       "school": "Tên trường đầy đủ và ký hiệu viết tắt trong ngoặc, ví dụ: Học viện Công nghệ Bưu chính Viễn thông (PTIT)",
       "major": "Tên ngành học muốn xét tuyển",
       "method": "Tên phương thức xét tuyển ngắn gọn",
-      "formula_preset": "Chọn 1 trong các khóa sau: 'math_lit_ielts', 'math_lit_eng_ielts_bonus', 'tmu_formula', 'hvnh_formula', 'three_subjects_average', 'ueh_formula'",
+      "formula_preset": "Chọn 1 trong các khóa sau: 'math_lit_ielts', 'math_lit_eng_ielts_bonus', 'tmu_formula', 'hvnh_formula', 'three_subjects_average', 'ueh_formula', hoặc 'custom' nếu công thức khác hoàn toàn các công thức trên",
+      "custom_formula": "Nếu formula_preset là 'custom', hãy tự tạo công thức toán học tính điểm sử dụng các biến: 'Toán', 'Văn', 'Anh', 'IELTS', 'KV', 'Chuyên'. Ví dụ: '(Toán * 2 + Văn + IELTS) * 3/4 + KV'",
       "benchmark": "Điểm chuẩn năm trước (nếu không có thì đoán hoặc ước lượng hoặc để trống)",
       "ielts_converted": "Điểm quy đổi hoặc điểm cộng dành cho chứng chỉ IELTS 6.5 của trường này, ví dụ: '9.5' hoặc 'Cộng 2.0đ'"
     }
@@ -942,7 +1000,17 @@ async function runAIQuickScan() {
             document.getElementById("modal-school-name").value = parsed.school || "";
             document.getElementById("modal-major-name").value = parsed.major || "";
             document.getElementById("modal-method").value = parsed.method || "";
-            document.getElementById("modal-formula-preset").value = parsed.formula_preset || "math_lit_ielts";
+            
+            const formulaPreset = parsed.formula_preset || "math_lit_ielts";
+            document.getElementById("modal-formula-preset").value = formulaPreset;
+            
+            if (formulaPreset === "custom" || parsed.custom_formula) {
+                document.getElementById("modal-formula-preset").value = "custom";
+                document.getElementById("modal-custom-formula-text").value = parsed.custom_formula || "";
+            } else {
+                document.getElementById("modal-custom-formula-text").value = "";
+            }
+            
             document.getElementById("modal-benchmark").value = parsed.benchmark || "";
             document.getElementById("modal-ielts-converted").value = parsed.ielts_converted || "9.5";
             
