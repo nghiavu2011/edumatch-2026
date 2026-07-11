@@ -1385,3 +1385,34 @@ html {
     line-height: 1.6;
     color: var(--text-secondary);
 }
+
+/* Quick Demo Sign-In Button styles */
+.nm-demo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 16px;
+    background-color: rgba(99, 102, 241, 0.1);
+    border: 1px dashed rgba(99, 102, 241, 0.4);
+    border-radius: 9999px;
+    color: #FDFBF7;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nm-demo-btn:hover {
+    background-color: rgba(99, 102, 241, 0.25);
+    border-color: rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.2);
+    transform: translateY(-1px);
+}
+
+.nm-demo-btn i {
+    width: 15px;
+    height: 15px;
+    color: #A78BFA;
+}

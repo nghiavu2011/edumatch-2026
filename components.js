@@ -41,13 +41,16 @@ class NMStudioHeader extends HTMLElement {
                             </button>
                             
                             <!-- Google Sign-In Area -->
-                            <div id="google-auth-container">
+                            <div id="google-auth-container" style="display: flex; align-items: center; gap: 8px;">
                                 <div id="g_id_onload"
                                      data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
                                      data-callback="handleCredentialResponse"
                                      data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+                                <button onclick="handleMockLogin()" class="nm-demo-btn" title="Đăng nhập nhanh không cần tài khoản">
+                                    <i data-lucide="sparkles"></i> Demo
+                                </button>
                             </div>
                             
                             <!-- Logged In User Widget -->

@@ -1481,3 +1481,11 @@ function decodeJwt(token) {
 if (appState.user) {
     window.addEventListener("load", showUserWidget);
 }
+
+// Mock Google sign-in to bypass client ID config limits on custom domains
+window.handleMockLogin = function() {
+    console.log("Triggering quick demo sign-in...");
+    window.handleCredentialResponse({
+        credential: "mock.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IktoJmFhY2g7Y2ggVHLhuqNpIE5naGnhu4dtIiwiZW1haWwiOiJkZW1vQG5tc3R1ZGlvLnZuIiwicGljdHVyZSI6Imh0dHBzOi8vYXBpLmRpY2ViZWFyLmNvbS83LngvYXZhdGFyL3N2Zz9zZWVkPWRlbW8ifQ.mock"
+    });
+};
