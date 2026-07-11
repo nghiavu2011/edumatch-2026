@@ -1271,7 +1271,7 @@ async function generateAIEvaluation(force = false) {
         localEval += `<br><div class="alert-box alert-success mt-2" style="background: rgba(99,102,241,0.08); border: 1px dashed rgba(99,102,241,0.3);">
             <div class="alert-icon text-violet"><i data-lucide="sparkles"></i></div>
             <div class="alert-text" style="font-size: 0.75rem;">
-                <strong>Mở khóa AI:</strong> Hãy <strong>Đăng nhập Google</strong> ở góc trên bên phải để kích hoạt Trợ lý AI phân tích sâu sắc hơn.
+                <strong>Mở khóa AI:</strong> Hãy nhấn nút <strong>Demo</strong> hoặc <strong>Đăng nhập Google</strong> ở góc trên bên phải để kích hoạt ngay Trợ lý AI phân tích sâu sắc.
             </div>
         </div>`;
         textContainer.innerHTML = localEval;
