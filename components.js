@@ -13,6 +13,34 @@ class NMStudioHeader extends HTMLElement {
     }
 
     render() {
+        const clientID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+        const isDemoMode = clientID.includes("YOUR_GOOGLE_CLIENT_ID");
+
+        let authHtml = "";
+        if (isDemoMode) {
+            authHtml = `
+                <div id="google-auth-container">
+                    <button onclick="handleMockLogin()" class="nm-demo-btn animate-pulse" style="background: linear-gradient(135deg, #6366F1, #8B5CF6); border: none; font-weight: 600;" title="Đăng nhập nhanh không cần tài khoản">
+                        <i data-lucide="sparkles"></i> Đăng nhập Demo dùng AI
+                    </button>
+                </div>
+            `;
+        } else {
+            authHtml = `
+                <div id="google-auth-container" style="display: flex; align-items: center; gap: 8px;">
+                    <div id="g_id_onload"
+                         data-client_id="${clientID}"
+                         data-callback="handleCredentialResponse"
+                         data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+                    <button onclick="handleMockLogin()" class="nm-demo-btn" title="Đăng nhập nhanh không cần tài khoản">
+                        <i data-lucide="sparkles"></i> Demo
+                    </button>
+                </div>
+            `;
+        }
+
         this.innerHTML = `
             <header class="nm-header">
                 <div class="nm-header-container">
@@ -40,18 +68,7 @@ class NMStudioHeader extends HTMLElement {
                                 <i data-lucide="moon" class="moon-icon"></i>
                             </button>
                             
-                            <!-- Google Sign-In Area -->
-                            <div id="google-auth-container" style="display: flex; align-items: center; gap: 8px;">
-                                <div id="g_id_onload"
-                                     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-                                     data-callback="handleCredentialResponse"
-                                     data-auto_prompt="false">
-                                </div>
-                                <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
-                                <button onclick="handleMockLogin()" class="nm-demo-btn" title="Đăng nhập nhanh không cần tài khoản">
-                                    <i data-lucide="sparkles"></i> Demo
-                                </button>
-                            </div>
+                            ${authHtml}
                             
                             <!-- Logged In User Widget -->
                             <div id="user-widget" class="user-widget hidden">
